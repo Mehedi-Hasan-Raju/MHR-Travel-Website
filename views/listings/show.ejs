@@ -151,15 +151,14 @@ font-size: larger;
         <div class="row">
             <!-- Check-in Calendar -->
             <div class="col-md-5">
-                <label for="checkin">Check-in:</label>
-                <div id="checkin"></div>  <!-- Inline calendar here -->
-            </div>
-          
-            <!-- Check-out Calendar -->
-            <div class="col-md-5 offset-md-2">
-                <label for="checkout">Check-out:</label>
-                <div id="checkout"></div>  <!-- Inline calendar here -->
-            </div>
+  <label for="checkin">Check-in:</label>
+  <input type="text" id="checkin" class="form-control" placeholder="Select date" />
+</div>
+
+<div class="col-md-5 offset-md-2">
+  <label for="checkout">Check-out:</label>
+  <input type="text" id="checkout" class="form-control" placeholder="Select date" />
+</div>
         </div>
     
         <label for="guests">Guests:</label>
@@ -306,5 +305,12 @@ font-size: larger;
       </div>
       
     </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+<script>
+  flatpickr("#checkin", { minDate: "today" });
+  flatpickr("#checkout", { minDate: "today" });
+</script>
     <script src="/js/map.js"></script>
   </body>
