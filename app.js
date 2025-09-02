@@ -20,6 +20,8 @@ const User = require("./models/user.js");
 const listingRouter = require("./routes/listing.js");
 const reviewsRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
+const bookingRoutes = require("./routes/booking");
+
 
 // const MONGO_URL = "mongodb://127.0.0.1:27017/wanderlust";
 const dburl = process.env.MONGO_URL;
@@ -118,6 +120,8 @@ app.use((req,res,next)=>{
 
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
+app.use("/bookings", bookingRoutes);
+
 app.use("/",userRouter);
 
 //Exception Route

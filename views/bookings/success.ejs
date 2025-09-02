@@ -1,0 +1,27 @@
+<% layout("/layouts/boilerplate") %>
+
+<div style="max-width: 900px; margin: 50px auto; font-family: Arial, sans-serif; text-align:center;">
+
+  <h2 style="font-size:28px; font-weight:bold; color:#28a745; margin-bottom: 20px;">
+    Your booking is confirmed ✅
+  </h2>
+
+  <!-- Listing Image -->
+  <div>
+    <img src="<%= booking.listing.image.url %>" alt="<%= booking.listing.title %>" style="width:100%; max-width:500px; border-radius:12px; object-fit:cover; margin-bottom:20px;">
+  </div>
+
+  <!-- Booking Info -->
+  <div style="text-align:left; margin:0 auto; max-width:500px;">
+    <h3><%= booking.listing.title %></h3>
+    <p><strong>Location:</strong> <%= booking.listing.location %></p>
+    <p><strong>Date booked:</strong> <%= booking.date ? booking.date.toDateString() : '' %></p>
+    <p><strong>Price per night:</strong> &#2547; <%= booking.listing.price || 'N/A' %></p>
+    <p><strong>Total:</strong> &#2547; <%= booking.listing.price || 'N/A' %></p>
+    <p><strong>Description:</strong> <%= booking.listing.description || '' %></p>
+  </div>
+
+  <a href="/listings" style="display:inline-block; margin-top:20px; padding:12px 24px; background:#FF385C; color:white; text-decoration:none; border-radius:8px; font-weight:bold;">
+    Back to Listings
+  </a>
+</div>
