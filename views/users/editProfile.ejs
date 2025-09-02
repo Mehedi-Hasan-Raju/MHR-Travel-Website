@@ -1,0 +1,78 @@
+<% layout("/layouts/boilerplate") %>
+
+<div style="max-width: 700px; margin: 50px auto; font-family: Arial, sans-serif;">
+  <div style="padding: 30px; border: 1px solid #ddd; border-radius: 12px; background: #fff; box-shadow: 0px 2px 10px rgba(0,0,0,0.1);">
+
+    <h2 style="text-align: center; margin-bottom: 30px; font-size: 26px; color: #333;">Edit Profile</h2>
+
+    <form action="/users/<%= user._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
+
+      <!-- Name -->
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #444;">Full Name</label>
+        <input 
+          type="text" 
+          name="name" 
+          value="<%= user.name %>" 
+          required
+          style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;"
+        />
+      </div>
+
+      <!-- Bio -->
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #444;">Bio</label>
+        <textarea 
+          name="bio" 
+          rows="4"
+          style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;"
+        ><%= user.bio %></textarea>
+      </div>
+
+      <!-- Phone -->
+      <div style="margin-bottom: 20px;">
+        <label style="display: block; margin-bottom: 8px; font-weight: 600; color: #444;">Phone</label>
+        <input 
+          type="text" 
+          name="phone" 
+          value="<%= user.phone %>" 
+          style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px;"
+        />
+      </div>
+
+      <!-- Profile Picture Upload -->
+      <div style="margin-bottom: 20px;">
+        <label for="profilePic" style="display: block; margin-bottom: 8px; font-weight: 600; color: #444;">Upload Profile Picture</label>
+        <input 
+          type="file" 
+          name="profilePic" 
+          id="profilePic" 
+          accept="image/*" 
+          style="width: 100%; padding: 6px; border: 1px solid #ccc; border-radius: 6px;"
+        />
+        <% if(user.profilePic) { %>
+          <div style="margin-top: 10px;">
+            <img src="<%= user.profilePic %>" alt="Profile Picture" style="width: 100px; height:100px; border-radius: 50%; object-fit: cover; border: 1px solid #ccc;">
+          </div>
+        <% } %>
+      </div>
+
+      <!-- Buttons -->
+      <div style="text-align: center; margin-top: 20px;">
+        <button 
+          type="submit" 
+          style="padding: 12px 24px; background: #28a745; color: white; border: none; border-radius: 8px; font-weight: 600; cursor: pointer;"
+        >
+          ✅ Save Changes
+        </button>
+        <a 
+          href="/users/<%= user._id %>" 
+          style="padding: 12px 24px; margin-left: 10px; background: #6c757d; color: white; text-decoration: none; border-radius: 8px; font-weight: 600;"
+        >
+          Cancel
+        </a>
+      </div>
+
+    </form>
+  </div>
+</div>

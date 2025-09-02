@@ -17,37 +17,86 @@
     border-radius: 25px;
     padding: 0.5rem 3rem;
   }
+  .profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #ddd;
+    cursor: pointer;
+  }
+  .dropdown-menu a {
+    font-size: 0.95rem;
+  }
 </style>
+
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="/listings"><img  src="https://res.cloudinary.com/diguqxumc/image/upload/v1744907718/xuze1scy31qet9g7uuze.jpg" width="41px" style="margin-right:12px; margin-bottom: 10px;" alt="logo"><b style="display: inline-block; color: #683193; font-size: 1.5rem; line-height: 1.2rem; margin-top: 20px; font-family:Arial, Helvetica, sans-serif;">&nbsp;MHR TRAVEl</b></a>
-        <button class="navbar-toggler" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#navbarNavAltMarkup" 
-        >
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-        <!-- <div class="navbar-nav">
-          <a class="nav-link" href="/listings">Explore</a>
-        </div> -->
-        <div class="navbar-nav ms-auto">
-          <form class="d-flex" action="/listings/search" method="GET">
-            <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations" name="title" />
-            <button class="btn search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
-          </form>
-        </div>
-        <div class="navbar-nav ms-auto">
-          <a class="nav-link " href="/listings/new">Add New Place</a>
-          <% if(!currUser) { %>
-            <a class="nav-link" href="/signup"><b>Sign Up</b></a>
-            <a class="nav-link" href="/login"><b>Login</b></a>
-            <% } %>
-            <% if(currUser) { %>
-            <a class="nav-link" href="/logout"><b>Log out</b></a>
-            <% } %>
-        </div>
+  <div class="container-fluid">
+    
+    <!-- Logo -->
+    <a class="navbar-brand" href="/listings">
+      <img src="https://res.cloudinary.com/diguqxumc/image/upload/v1744907718/xuze1scy31qet9g7uuze.jpg" 
+           width="41px" 
+           style="margin-right:12px; margin-bottom: 10px;" 
+           alt="logo">
+      <b style="display: inline-block; color: #683193; font-size: 1.5rem; line-height: 1.2rem; margin-top: 20px; font-family:Arial, Helvetica, sans-serif;">
+        &nbsp;MHR TRAVEl
+      </b>
+    </a>
+
+    <!-- Mobile Toggle -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Navbar Content -->
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
+      <!-- Search -->
+      <div class="navbar-nav ms-auto">
+        <form class="d-flex" action="/listings/search" method="GET">
+          <input class="form-control me-2 search-inp" type="search" placeholder="Search destinations" name="title" />
+          <button class="btn search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i>Search</button>
+        </form>
+      </div>
+
+      <!-- Right Section -->
+      <div class="navbar-nav ms-auto align-items-center">
+
+        <% if(!currUser) { %>
+          <!-- Not logged in -->
+          <a class="nav-link" href="/signup"><b>Sign Up</b></a>
+          <a class="nav-link" href="/login"><b>Login</b></a>
+        <% } %>
+
+        <% if(currUser) { %>
+          <!-- Dropdown Menu for Logged in User -->
+          <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="<%= currUser.profilePic || 'https://res.cloudinary.com/diguqxumc/image/upload/v1744809451/o38ysaoazrhlrobgmjes.jpg' %>" alt="Profile" class="profile-pic">
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end shadow" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="/users/<%= currUser._id %>">
+                  <i class="fa-solid fa-user"></i> My Profile
+                </a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="/listings/new">
+                  <i class="fa-solid fa-plus"></i> Add New Place
+                </a>
+              </li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <a class="dropdown-item text-danger" href="/logout">
+                  <i class="fa-solid fa-right-from-bracket"></i> Log out
+                </a>
+              </li>
+            </ul>
+          </div>
+        <% } %>
+
       </div>
     </div>
+  </div>
 </nav>
