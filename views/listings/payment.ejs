@@ -1,0 +1,110 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="container" style="max-width:1200px; margin:30px auto;">
+  <h3 class="mb-4">Confirm and pay</h3>
+  <div class="row g-4">
+
+    <!-- LEFT SIDE: Payment Method -->
+    <div class="col-md-7">
+      <div style="background:#fff; border-radius:12px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+        <h5 style="font-weight:600; margin-bottom:15px;">1. Add a payment method</h5>
+
+        <form action="/process-payment" method="POST">
+          <div class="mb-3">
+            <label class="form-label">Card number</label>
+            <input type="text" class="form-control" name="cardNumber" placeholder="1234 5678 9012 3456" value="<%= typeof cardNumber !== 'undefined' ? cardNumber : '' %>">
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Expiration</label>
+              <input type="text" class="form-control" name="expiration" placeholder="MM/YY" value="<%= typeof expiration !== 'undefined' ? expiration : '' %>">
+            </div>
+            <div class="col-md-6 mb-3">
+              <label class="form-label">CVV</label>
+              <input type="text" class="form-control" name="cvv" placeholder="123" value="<%= typeof cvv !== 'undefined' ? cvv : '' %>">
+            </div>
+          </div>
+
+          <h6 class="mt-3">Billing address</h6>
+          <div class="mb-3">
+            <input type="text" class="form-control" name="street" placeholder="Street address" value="<%= typeof street !== 'undefined' ? street : '' %>">
+          </div>
+          <div class="mb-3">
+            <input type="text" class="form-control" name="apt" placeholder="Apt or suite number" value="<%= typeof apt !== 'undefined' ? apt : '' %>">
+          </div>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <input type="text" class="form-control" name="city" placeholder="City" value="<%= typeof city !== 'undefined' ? city : (listing.location || '') %>">
+            </div>
+            <div class="col-md-3 mb-3">
+              <input type="text" class="form-control" name="state" placeholder="State" value="<%= typeof state !== 'undefined' ? state : (listing.country || '') %>">
+            </div>
+            <div class="col-md-3 mb-3">
+              <input type="text" class="form-control" name="zip" placeholder="ZIP code" value="<%= typeof zip !== 'undefined' ? zip : '' %>">
+            </div>
+          </div>
+          <div class="mb-3">
+            <select class="form-select" name="country">
+              <option <%= typeof country !== 'undefined' && country === listing.country ? 'selected' : '' %>><%= listing.country || 'Bangladesh' %></option>
+              <option <%= typeof country !== 'undefined' && country === 'United States' ? 'selected' : '' %>>United States</option>
+              <option <%= typeof country !== 'undefined' && country === 'India' ? 'selected' : '' %>>India</option>
+              <option <%= typeof country !== 'undefined' && country === 'UK' ? 'selected' : '' %>>UK</option>
+            </select>
+          </div>
+
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="radio" name="payMethod" id="paypal" value="paypal" <%= typeof payMethod !== 'undefined' && payMethod === 'paypal' ? 'checked' : '' %>>
+            <label class="form-check-label" for="paypal">PayPal</label>
+          </div>
+          <div class="form-check mb-3">
+            <input class="form-check-input" type="radio" name="payMethod" id="gpay" value="gpay" <%= typeof payMethod !== 'undefined' && payMethod === 'gpay' ? 'checked' : '' %>>
+            <label class="form-check-label" for="gpay">Google Pay</label>
+          </div>
+
+          <button type="submit" style="background:black; color:#fff; border-radius:8px; padding:10px 20px;">Next</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- RIGHT SIDE: Booking Summary -->
+    <div class="col-md-5">
+      <div style="background:#fff; border-radius:12px; padding:20px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+        <div class="row g-3">
+          <div class="col-4">
+            <img src="<%= listing.image.url || '' %>" alt="Room Image" style="border-radius:12px; width:100%; height:auto;">
+          </div>
+          <div class="col-8">
+            <h6> <%= listing.title || '' %></h6>
+            <p class="text-muted mb-1">⭐ <%= listing.averageRating || '5.0' %> (<%= listing.reviews.length || '0' %>) · Guest favorite</p>
+            <small><%= typeof cancellation !== 'undefined' ? cancellation : 'Free cancellation before Sep 10' %></small>
+          </div>
+        </div>
+
+  <div class="mt-3">
+  <h6>Trip details</h6>
+  <p>
+    <%= (query.checkin && query.checkout) ? `${query.checkin} – ${query.checkout}` : '' %><br>
+    <%= query.guests ? query.guests + (query.guests === '1' ? ' guest' : ' guests') : '1 guest' %>
+  </p>
+</div>
+
+
+
+        <div style="border-top:1px solid #ddd; padding-top:10px; margin-top:10px;">
+  <div class="d-flex justify-content-between">
+    <span><%= price.nights %> night<%= price.nights > 1 ? 's' : '' %> x &#2547 <%= price.nightly %></span>
+    <span>&#2547 <%= price.subtotal.toFixed(2) %></span>
+  </div>
+  <div class="d-flex justify-content-between fw-bold mt-2">
+    <span>Total &#2547</span>
+    <span>&#2547 <%= price.total.toFixed(2) %></span>
+  </div>
+</div>
+        <div class="mt-3 text-danger">
+          <i class="bi bi-gem"></i> <%= typeof rareFindMessage !== 'undefined' ? rareFindMessage : 'This is a rare find. Paul’s place is usually booked.' %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
