@@ -451,3 +451,63 @@ padding: 0.5rem 3rem;
 }
 
 
+.rating-card {
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        max-width: auto;
+        width: 100% !important;
+        margin-bottom: 20px;
+    }
+    
+    .rating-number {
+        font-size: 48px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    .rating-number i {
+        color: gold;
+        font-size: 24px;
+        margin: 0 5px;
+    }
+    
+    .rating-text {
+        font-size: 18px;
+        color: gray;
+        margin-top: 5px;
+    }
+    
+    .ratings-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 15px;
+    }
+    
+    .rating-item {
+        text-align: center;
+        flex: 1;
+    }
+    
+    .rating-item i {
+        font-size: 24px;
+        margin-bottom: 5px;
+    }
+    
+    .bar-container {
+        width: 100% !important;
+        background-color: #e0e0e0;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-top: 5px;
+    }
+    
+    .bar {
+        height: 6px;
+        background-color: black;
+    }
+    
