@@ -30,4 +30,13 @@ router.get("/:id/success", isLoggedIn, wrapAsync(async (req, res) => {
     res.render("bookings/success.ejs", { booking });
 }));
 
+// DELETE a booking
+router.delete("/:id", isLoggedIn, wrapAsync(async (req, res) => {
+    const { id } = req.params;
+    await Booking.findByIdAndDelete(id);
+    req.flash("success", "Booking deleted successfully!");
+    res.redirect(`/users/${req.user._id}?tab=past-trips`);
+}));
+
+
 module.exports = router;

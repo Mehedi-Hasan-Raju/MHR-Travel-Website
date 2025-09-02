@@ -94,9 +94,8 @@ module.exports.logout = (req, res, next) => {
     });
 };
 
-// ============================
+
 // PROFILE CONTROLLERS
-// ============================
 
 // Show user profile
 module.exports.showProfile = async (req, res) => {
@@ -107,21 +106,33 @@ module.exports.showProfile = async (req, res) => {
             return res.redirect("/listings");
         }
 
-        // Get tab from query string, default to 'about'
         const tab = req.query.tab || "about";
 
-        // If past-trips tab, fetch bookings
-        let bookings = [];
+        let upcomingTrips = [];
+        let pastTrips = [];
+
         if (tab === "past-trips") {
-            bookings = await Booking.find({ user: req.params.id }).populate('listing');
+            const bookings = await Booking.find({ user: req.params.id }).populate('listing');
+
+            const today = new Date();
+
+            upcomingTrips = bookings.filter(b => new Date(b.date) >= today);
+            pastTrips = bookings.filter(b => new Date(b.date) < today);
         }
 
-        res.render("users/profile.ejs", { user, tab, bookings });
+        res.render("users/profile.ejs", { 
+            user, 
+            tab, 
+            upcomingTrips, 
+            pastTrips 
+        });
     } catch (e) {
+        console.log(e);
         req.flash("error", "Something went wrong");
         res.redirect("/listings");
     }
 };
+
 
 // Render edit profile form
 module.exports.renderEditProfileForm = async (req, res) => {

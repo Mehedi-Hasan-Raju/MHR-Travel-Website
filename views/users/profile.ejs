@@ -13,7 +13,7 @@
       </li>
       <li>
         <a href="/users/<%= user._id %>?tab=past-trips" class="<%= tab==='past-trips' ? 'active' : '' %>">
-          🧳 Past Trips
+          🧳 Trips
         </a>
       </li>
     </ul>
@@ -28,7 +28,6 @@
           <div class="avatar"><%= user.username[0].toUpperCase() %></div>
           <div class="user-info">
             <h2><%= user.username %></h2>
-            
           </div>
         </div>
         <p class="about-text"><%= user.name %></p>
@@ -37,19 +36,44 @@
         </p>
         <a href="/users/<%= user._id %>/edit" class="btn-edit">Edit Profile</a>
       </div>
+
     <% } else if(tab === 'past-trips') { %>
       <div class="trips-section">
-        <h2>Past Trips</h2>
-        <% if(bookings.length === 0) { %>
-          <p class="no-trips">No trips yet.</p>
+        <!-- Upcoming Trips -->
+        <h2>Upcoming Trips</h2>
+        <% if(upcomingTrips.length === 0) { %>
+          <p class="no-trips">No upcoming trips.</p>
         <% } else { %>
           <div class="trips-grid">
-            <% bookings.forEach(booking => { %>
+            <% upcomingTrips.forEach(booking => { %>
               <div class="trip-card">
-                <img src="<%= booking.listing.image %>" alt="<%= booking.listing.title %>">
+                <img src="<%= booking.listing.image.url %>" alt="<%= booking.listing.title %>">
+                <div class="trip-info">
+                  <h4><%= booking.listing.title %></h4>
+                  <p>Staying on <%= booking.date.toDateString() %></p>
+                </div>
+              </div>
+            <% }) %>
+          </div>
+        <% } %>
+
+        <!-- Past Trips -->
+        <h2 style="margin-top:40px;">Past Trips</h2>
+        <% if(pastTrips.length === 0) { %>
+          <p class="no-trips">No past trips.</p>
+        <% } else { %>
+          <div class="trips-grid">
+            <% pastTrips.forEach(booking => { %>
+              <div class="trip-card">
+                <img src="<%= booking.listing.image.url %>" alt="<%= booking.listing.title %>">
                 <div class="trip-info">
                   <h4><%= booking.listing.title %></h4>
                   <p>Stayed on <%= booking.date.toDateString() %></p>
+
+                  <!-- Delete button -->
+                  <form action="/bookings/<%= booking._id %>?_method=DELETE" method="POST" style="margin-top:10px;">
+                    <button type="submit" class="btn-delete">Delete</button>
+                  </form>
                 </div>
               </div>
             <% }) %>
@@ -59,11 +83,10 @@
     <% } %>
 
   </main>
-
 </div>
 
-<!-- Add a CSS file or style block -->
 <style>
+/* Container */
 .profile-container {
   display: flex;
   min-height: 100vh;
@@ -71,6 +94,7 @@
   background: #fff;
 }
 
+/* Sidebar */
 .profile-sidebar {
   width: 250px;
   padding: 20px;
@@ -102,11 +126,13 @@
   font-weight: bold;
 }
 
+/* Main Content */
 .profile-content {
   flex: 1;
   padding: 40px;
 }
 
+/* About Section */
 .user-header {
   display: flex;
   align-items: center;
@@ -144,6 +170,7 @@
   text-decoration: none;
 }
 
+/* Trips Section */
 .trips-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -176,6 +203,21 @@
   margin: 0;
   color: #666;
   font-size: 14px;
+}
+
+/* Delete Button */
+.btn-delete {
+  background: #dc3545;
+  color: #fff;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-delete:hover {
+  background: #c82333;
 }
 
 .no-trips {
