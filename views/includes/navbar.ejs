@@ -25,6 +25,20 @@
     border: 2px solid #ddd;
     cursor: pointer;
   }
+  .switch-role-btn {
+    margin-right: 10px;
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: none;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background-color: #ff385c;
+    color: white;
+    transition: background 0.2s;
+  }
+  .switch-role-btn:hover {
+    background-color: #e03150;
+  }
   .dropdown-menu a {
     font-size: 0.95rem;
   }
@@ -40,7 +54,7 @@
            style="margin-right:12px; margin-bottom: 10px;" 
            alt="logo">
       <b style="display: inline-block; color: #683193; font-size: 1.5rem; line-height: 1.2rem; margin-top: 20px; font-family:Arial, Helvetica, sans-serif;">
-        &nbsp;MHR TRAVEl
+        &nbsp;MHR TRAVEL
       </b>
     </a>
 
@@ -70,6 +84,17 @@
         <% } %>
 
         <% if(currUser) { %>
+          <!-- Switch Role Button -->
+          <form action="/users/<%= currUser._id %>/switch-role" method="POST" class="d-inline">
+            <button type="submit" class="switch-role-btn">
+              <% if(!currUser.isHost) { %>
+                Switch to Host
+              <% } else { %>
+                Switch to Traveler
+              <% } %>
+            </button>
+          </form>
+
           <!-- Dropdown Menu for Logged in User -->
           <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -81,11 +106,18 @@
                   <i class="fa-solid fa-user"></i> My Profile
                 </a>
               </li>
-              <li>
-                <a class="dropdown-item" href="/listings/new">
-                  <i class="fa-solid fa-plus"></i> Add New Place
-                </a>
-              </li>
+              <% if(currUser.isHost) { %>
+                <li>
+                  <a class="dropdown-item" href="/host/dashboard">
+                    <i class="fa-solid fa-gauge"></i> Host Dashboard
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/listings/new">
+                    <i class="fa-solid fa-plus"></i> Add New Listing
+                  </a>
+                </li>
+              <% } %>
               <li><hr class="dropdown-divider"></li>
               <li>
                 <a class="dropdown-item text-danger" href="/logout">

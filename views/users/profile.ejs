@@ -25,11 +25,18 @@
     <% if(tab === 'about') { %>
       <div class="about-section">
         <div class="user-header">
-          <div class="avatar"><%= user.username[0].toUpperCase() %></div>
-          <div class="user-info">
-            <h2><%= user.username %></h2>
+          <div class="avatar">
+            <% if(user.profilePic) { %>
+               <img src="<%= user.profilePic %>" alt="User Avatar" style="width:180px; height:180px; border-radius:50%; object-fit:cover;">
+            <% } else { %>
+                 <%= user.username[0].toUpperCase() %>
+           <% } %>
           </div>
-        </div>
+       <div class="user-info">
+          <h2><%= user.username %></h2>
+     </div>
+  </div>
+
         <p class="about-text"><%= user.name %></p>
         <p class="about-text"><%= user.bio %> <br>
          <%= user.phone %>
@@ -140,8 +147,8 @@
 }
 
 .avatar {
-  width: 80px;
-  height: 80px;
+  width: 180px;
+  height: 180px;
   border-radius: 50%;
   background: #000;
   color: #fff;
