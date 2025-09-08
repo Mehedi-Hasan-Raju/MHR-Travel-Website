@@ -10,27 +10,27 @@ const userSchema = new Schema({
   },
   name: {
     type: String,
-    default: "", // User full name
+    default: "", 
   },
   profilePic: {
     type: String,
-    default: "", // store image URL (Cloudinary, AWS S3, or local)
+    default: "", 
   },
   bio: {
     type: String,
-    default: "", // short description
+    default: "", 
   },
   phone: {
     type: String,
     default: "",
   },
-  // Role as string: traveler or host
+  
   role: {
     type: String,
     enum: ["traveler", "host"],
     default: "traveler",
   },
-  // Boolean flag for quick checks
+ 
   isHost: {
     type: Boolean,
     default: false,

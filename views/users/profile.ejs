@@ -32,10 +32,10 @@
                  <%= user.username[0].toUpperCase() %>
            <% } %>
           </div>
-       <div class="user-info">
-          <h2><%= user.username %></h2>
-     </div>
-  </div>
+          <div class="user-info">
+            <h2><%= user.username %></h2>
+          </div>
+        </div>
 
         <p class="about-text"><%= user.name %></p>
         <p class="about-text"><%= user.bio %> <br>
@@ -57,7 +57,13 @@
                 <img src="<%= booking.listing.image.url %>" alt="<%= booking.listing.title %>">
                 <div class="trip-info">
                   <h4><%= booking.listing.title %></h4>
-                  <p>Staying on <%= booking.date.toDateString() %></p>
+                  <p>
+                    <% if (booking.date) { %>
+                      Staying on <%= booking.date.toDateString() %>
+                    <% } else { %>
+                      Date not available
+                    <% } %>
+                  </p>
                 </div>
               </div>
             <% }) %>
@@ -75,7 +81,13 @@
                 <img src="<%= booking.listing.image.url %>" alt="<%= booking.listing.title %>">
                 <div class="trip-info">
                   <h4><%= booking.listing.title %></h4>
-                  <p>Stayed on <%= booking.date.toDateString() %></p>
+                  <p>
+                    <% if (booking.date) { %>
+                      Stayed on <%= booking.date.toDateString() %>
+                    <% } else { %>
+                      Date not available
+                    <% } %>
+                  </p>
 
                   <!-- Delete button -->
                   <form action="/bookings/<%= booking._id %>?_method=DELETE" method="POST" style="margin-top:10px;">

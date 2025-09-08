@@ -9,7 +9,7 @@ const { storage } = require("../cloudConfig.js");
 const upload = multer({ storage });
 const User = require("../models/user");
 
-// ================= AUTH ROUTES =================
+// AUTH ROUTES 
 router
   .route("/signup")
   .get(userController.renderSignupForm)
@@ -29,7 +29,7 @@ router
 
 router.get("/logout", userController.logout);
 
-// ================= PROFILE ROUTES =================
+// PROFILE ROUTES 
 
 // Show profile
 router.get("/users/:id", wrapAsync(userController.showProfile));
@@ -44,7 +44,7 @@ router.put(
   wrapAsync(userController.updateProfile)
 );
 
-// ================= ROLE SWITCH ROUTE =================
+// ROLE SWITCH ROUTE 
 router.post(
   "/users/:id/switch-role",
   wrapAsync(async (req, res) => {
